@@ -19,18 +19,17 @@ def decode(image):
         # draw the barcode
         image = draw_barcode(obj, image)
         # print barcode type & data
-        print("Type:", obj.type)
-        print("Data:", obj.data)
-        print()
-        break
-    return image
+        defis = str(obj.data).find('\'')
+        data = str(obj.data)[(defis+1):-1]
+        print(data)
+        raise SystemExit
 
 def camera():
     cap = cv2.VideoCapture(0)
     while True:
         _, frame = cap.read()
-        frame = decode(frame)
         cv2.imshow("frame", frame)
+        frame = decode(frame)
         if cv2.waitKey(1) == 27:
             break
 
